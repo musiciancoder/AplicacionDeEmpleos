@@ -5,7 +5,14 @@
 <title>Pagina de inicio</title>
 </head>
 <body>
-  <h1 th:text="${mensaje}"></h1>  <!-- forma numero 1 de renderizar atributos del modelo (con model.addatributes("mensaje", objeto)); -->
-  <h2> [[${fecha}]]</h2>  <!-- forma numero 2 de renderizar atributos del modelo (con model.addatributes("mensaje", objeto)); -->
+ <!--  <h1 th:text="${mensaje}"></h1>  forma numero 1 de renderizar atributos del modelo (con model.addatributes("mensaje", objeto));
+  <h2> [[${fecha}]]</h2>  forma numero 2 de renderizar atributos del modelo (con model.addatributes("mensaje", objeto)); -->
+  
+  <h3 th:text="'El titulo es:' + ${titulo}"></h3>
+   <h3 th:text="'La fecha es: ' + ${fecha}"></h3>
+    <h3 th:text="'El salario es: ' + ${salario}"></h3>
+     <h3 th:text="'Vigente ' + ${vigente}"></h3>
+  
+  
 </body>
 </html>
