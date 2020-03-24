@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+ <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Pagina de inicio</title>
 </head>
 <body>
-  <h1>Bienvenido a empleos app</h1>
+  <h1 th:text="${mensaje}"></h1>  <!-- forma numero 1 de renderizar atributos del modelo (con model.addatributes("mensaje", objeto)); -->
+  <h2> [[${fecha}]]</h2>  <!-- forma numero 2 de renderizar atributos del modelo (con model.addatributes("mensaje", objeto)); -->
 </body>
 </html>
