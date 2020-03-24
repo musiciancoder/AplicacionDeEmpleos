@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Listado de Vacantes</title>
+</head>
+<body>
+		<table style="width:100%">
+  <tr>
+    <th>Id</th>
+    <th>Nombre</th>
+    <th>Descripcion</th>
+    <th>Fecha</th>
+    <th>Salario ofrecido</th>
+  </tr>
+  <tr th:each="miVariable:${vacantes}">
+    <td th:text="${miVariable.id}"></td>
+    
+       <td th:text="${miVariable.nombre}"></td>
+       <td th:text="${miVariable.descripcion}"></td>
+       <td th:text="${miVariable.fecha}"></td>
+       <td th:text="${miVariable.salario}"></td>
+  </tr>
+
+</table>
+</body>
+</html>
