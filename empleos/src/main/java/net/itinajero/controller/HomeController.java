@@ -8,8 +8,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import net.itinajero.modelo.Vacante;
+
 @Controller
 public class HomeController {
+	
+	@GetMapping("/detalle")
+	public String detalle (Vacante vacante, Model model) {
+		vacante.setId(1);
+		vacante.setNombre("Ingeniero de sistemas");
+		vacante.setDescripcion("Ingeniero senior");
+		vacante.setFecha(null);
+		vacante.setSalario(9700.0);
+		model.addAttribute("vacante", vacante);
+		
+		
+		return "detalle";
+		
+		
+	}
 	
 	@GetMapping("/listado")
 	public String mostrarListado(Model model) {
