@@ -14,10 +14,12 @@ import net.itinajero.modelo.Vacante;
 public class HomeController {
 	
 	@GetMapping("/detalle")
-	public String detalle (Vacante vacante, Model model) {
+	public String detalle (Model model) {
+		
+		Vacante vacante = new Vacante () ;
 		vacante.setId(1);
 		vacante.setNombre("Ingeniero de sistemas");
-		vacante.setDescripcion("Ingeniero senior");
+		vacante.setDescripcion("Ingeniero junior");
 		vacante.setFecha(null);
 		vacante.setSalario(9700.0);
 		model.addAttribute("vacante", vacante);
