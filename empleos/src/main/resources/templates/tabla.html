@@ -46,6 +46,9 @@
 				<span
 				th:unless="${miVariable.de==1}" class="badge badge-danger">No</span>
 			</td>
+			<td>
+			<a th:href="@{/vacantes/view/{id} (id=${miVariable.id})}" class="btn btn-success">Detalle</a>
+			</td>
 
 
 		</tr>
