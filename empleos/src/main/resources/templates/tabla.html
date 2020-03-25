@@ -26,8 +26,11 @@
 			<th>Salario ofrecido</th>
 			<th>Descripcion</th>
 		</tr>
+		
+		<!-- RENDERIZACION DINAMICA DE UNA TABLA (SE UTILIZA LA VARIAVLE miVariable COMO VARIABLE TEMPORAL-->
 		<tr th:each="miVariable:${vacantes}">
 		
+		<!-- RENDERIZACION DINAMICA IMAGENES (SE UTILIZA LA VARIAVLE img COMO VARIABLE TEMPORAL -->
 		<td> 
 		<img th:src="@{/images/{img} (img=${miVariable.imagen})}" width="136" height="136" ></td>
 			<td th:text="${miVariable.id}"></td>
