@@ -9,8 +9,15 @@ public class Vacante {
 	private String descripcion;
 	private Date fecha;
 	private Double salario;
+	private Integer de;
 	
 	
+	public Integer getDe() {
+		return de;
+	}
+	public void setDe(Integer de) {
+		this.de = de;
+	}
 	public Integer getId() {
 		return id;
 	}

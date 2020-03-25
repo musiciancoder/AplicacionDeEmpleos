@@ -89,6 +89,7 @@ public class HomeController {
 			vacante1.setDescripcion("Internista");
 			vacante1.setFecha(sdf.parse("02-03-2020"));
 			vacante1.setSalario(12000.0);
+			vacante1.setDe(1);
 			
 			
 			Vacante vacante2= new Vacante();
@@ -97,6 +98,7 @@ public class HomeController {
 			vacante2.setDescripcion("Junior");
 			vacante2.setFecha(sdf.parse("01-04-2020"));
 			vacante2.setSalario(10000.0);
+			vacante2.setDe(0);
 			
 			
 			Vacante vacante3= new Vacante();
@@ -105,6 +107,7 @@ public class HomeController {
 			vacante3.setDescripcion("Ayudante");
 			vacante3.setFecha(sdf.parse("04-04-2020"));
 			vacante3.setSalario(2000.0);
+			vacante3.setDe(0);
 			
 			Vacante vacante4= new Vacante();
 			vacante4.setId(4);
@@ -112,6 +115,7 @@ public class HomeController {
 			vacante4.setDescripcion("Albañil");
 			vacante4.setFecha(sdf.parse("04-05-2020"));
 			vacante4.setSalario(1590.0);
+			vacante4.setDe(1);
 			
 			lista.add(vacante1);
 			lista.add(vacante2);
