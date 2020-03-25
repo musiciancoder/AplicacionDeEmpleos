@@ -10,8 +10,15 @@ public class Vacante {
 	private Date fecha;
 	private Double salario;
 	private Integer de;
+	private String imagen="no-image,png"; //por defecto va a tener este valor
 	
 	
+	public String getImagen() {
+		return imagen;
+	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 	public Integer getDe() {
 		return de;
 	}

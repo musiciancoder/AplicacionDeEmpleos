@@ -10,6 +10,10 @@
 </head>
 <body>
 
+
+	<img th:src="@{/images/log.png}" width="136" height="136">
+
+
 	<h1 class="text-primary">Listado de Vacantes</h1>
 
 
@@ -20,21 +24,25 @@
 			<th>Descripcion</th>
 			<th>Fecha</th>
 			<th>Salario ofrecido</th>
-			<th>De</th>
+			<th>Descripcion</th>
 		</tr>
 		<tr th:each="miVariable:${vacantes}">
+		
+		<td> 
+		<img th:src="@{/images/{img} (img=${miVariable.imagen})}" width="136" height="136" ></td>
 			<td th:text="${miVariable.id}"></td>
 
 			<td th:text="${miVariable.nombre}"></td>
 			<td th:text="${miVariable.descripcion}"></td>
 			<td th:text="${miVariable.fecha}"></td>
 			<td th:text="${miVariable.salario}"></td>
-<!-- 			<td th:text="${miVariable.de}"></td> -->
-<!-- <td th:text="${miVariable.de==1?'Si':'No'}"></td> -->
-<td>
-<span th:if="${miVariable.de==1}"  class="badge badge-success">Si</span>
-<span th:unless="${miVariable.de==1}"  class="badge badge-danger">No</span>
-</td>
+			<!-- 			<td th:text="${miVariable.de}"></td> -->
+			<!-- <td th:text="${miVariable.de==1?'Si':'No'}"></td> -->
+			<td><span th:if="${miVariable.de==1}"
+				class="badge badge-success">Si</span> 
+				<span
+				th:unless="${miVariable.de==1}" class="badge badge-danger">No</span>
+			</td>
 
 
 		</tr>
