@@ -47,7 +47,13 @@
 				th:unless="${miVariable.de==1}" class="badge badge-danger">No</span>
 			</td>
 			<td>
-			<a th:href="@{/vacantes/view/{id} (id=${miVariable.id})}" class="btn btn-success">Detalle</a>
+			<!-- LINK RECIBIDO EN EL CONTROLADOR CON @PATHVARIABLE -->
+			<a th:href="@{/vacantes/view/{id} (id=${miVariable.id})}" class="btn btn-success">Detalle</a> 
+			</td>
+			</td>
+			<td>
+			<!-- LINK RECIBIDO EN EL CONTROLADOR CON @REQUESTPARAM -->
+			<a th:href="@{/vacantes/delete(id=${miVariable.id})}" class="btn btn-danger">Borrar</a>
 			</td>
 
 
