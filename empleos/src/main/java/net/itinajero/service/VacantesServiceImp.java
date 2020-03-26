@@ -5,8 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import net.itinajero.modelo.Vacante;
 
+//CLASE DE SERVICIO PARA HACER INYECCION POR DEPENDENCIAS
+@Service
 public class VacantesServiceImp implements IVacantesService {
 
 	private  List<Vacante> lista = null; //declaramos e inicializamos con valor nulo
@@ -23,7 +27,7 @@ public class VacantesServiceImp implements IVacantesService {
 			vacante1.setNombre("Medico");
 			vacante1.setDescripcion("Internista");
 			vacante1.setFecha(sdf.parse("02-03-2020"));
-			vacante1.setSalario(12000.0);
+			vacante1.setSalario(14000.0);
 			vacante1.setDe(1);
 			vacante1.setImagen("anonimo1.png");
 			
@@ -74,7 +78,19 @@ public class VacantesServiceImp implements IVacantesService {
 	
 	@Override
 	public List<Vacante> buscarTodas() {
-		// TODO Auto-generated method stub
+		
+		return lista;
+	}
+
+	@Override
+	public Vacante buscarPorId(Integer idVacante) {
+		
+		for (Vacante v: lista) {
+			if (v.getId()==idVacante) {
+				return v; //devuelve esa vacante
+			}
+		}
+		
 		return null;
 	}
 

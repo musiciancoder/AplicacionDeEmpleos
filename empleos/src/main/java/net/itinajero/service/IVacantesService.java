@@ -7,4 +7,5 @@ import net.itinajero.modelo.Vacante;
 //INTERFAZ DE SERVICIO PARA HACER INYECCION DE DEPENDENCIAS
 public interface IVacantesService {
 		List<Vacante>buscarTodas(); //metodo a implementar en clase de servicio
+		Vacante buscarPorId(Integer idVacante);
 }
