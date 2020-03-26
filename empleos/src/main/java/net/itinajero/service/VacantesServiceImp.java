@@ -15,7 +15,17 @@ public class VacantesServiceImp implements IVacantesService {
 
 	private  List<Vacante> lista = null; //declaramos e inicializamos con valor nulo
 	
-	public VacantesServiceImp (){ //constructor
+	/*
+	 * public VacantesServiceImp (){ //constructor
+	 * 
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
+	
+	@Override
+	public List<Vacante> buscarTodas() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		lista=new LinkedList<Vacante>();
 		
@@ -71,14 +81,6 @@ public class VacantesServiceImp implements IVacantesService {
 		}
 		
 	
-		
-		
-	
-		}
-	
-	@Override
-	public List<Vacante> buscarTodas() {
-		
 		return lista;
 	}
 
