@@ -67,16 +67,9 @@ public class HomeController {
 		 * (en este caso un string) model.addAttribute("fecha", new Date()); //en este
 		 * caso el objeto es una fecha
 		 */		
+		List <Vacante>lista= serviceVacantes.buscarTodas() ; //USO DE INY DE DEPENDENCIAS
+		model.addAttribute("vacantes", lista);
 		
-		String titulo = "Auxiliar de contabilidad";
-		Date fecha = new Date();
-		Double salario = 9999.0;
-		Boolean vigente = true;
-		
-		model.addAttribute("titulo", titulo );
-		model.addAttribute("fecha", fecha );
-		model.addAttribute("salario", salario );
-		model.addAttribute("vigente", vigente);
 		return "home"; //nunca se necesita la extension. en spring en el controlado se puede retornar un objeto (html) que no coincide con el tipo definido inicialmente en el metodo
 		
 	}
