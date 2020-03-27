@@ -26,6 +26,22 @@ public class VacantesController {
 		return "vacantes/formVacante";
 	}
 	
+	/*
+	 * METODO Q SE EJECUTA AL HACER CLICK EN BOTON GUARDAR, EN FORMULARIO PARA CREAR
+	 * VACANTE; ASI SE HACE CON SPRING BOOT !!
+	 * */
+	@PostMapping("/save")
+	public String guardar(Vacante vacante ){ //notese que no se usa @RequestParam, solo basta con un objeto de la clase modelo (Vacante en este caso)
+		System.out.println("Vacante: " + vacante);
+		
+		
+	
+		return "vacantes/listVacantes";
+	}
+	/*
+	 * METODO Q SE EJECUTA AL HACER CLICK EN BOTON GUARDAR, EN FORMULARIO PARA CREAR
+	 * VACANTE; ASI SE HACE CON SPRING MVC, PERO NO CON SPRING BOOT
+	
 	@PostMapping("/save")
 	public String guardar(@RequestParam("nombre") String nombre, @RequestParam("descripcion") String descripcion ){
 		System.out.println("Nombre: " + nombre);
@@ -34,6 +50,7 @@ public class VacantesController {
 	
 		return "vacantes/listVacantes";
 	}
+	 */
 	
 	
 	
