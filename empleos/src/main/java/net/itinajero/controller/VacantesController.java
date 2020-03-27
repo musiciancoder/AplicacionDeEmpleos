@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,6 +19,24 @@ public class VacantesController {
 	//INYECCION DE DEPENDENCIAS
 	@Autowired
 	private IVacantesService serviceVacantes;
+	
+	@GetMapping("/create")
+	public String crear() {
+	
+		return "vacantes/formVacante";
+	}
+	
+	@PostMapping("/save")
+	public String guardar(@RequestParam("nombre") String nombre, @RequestParam("descripcion") String descripcion ){
+		System.out.println("Nombre: " + nombre);
+		System.out.println("Descripcion :" + descripcion);
+		
+	
+		return "vacantes/listVacantes";
+	}
+	
+	
+	
 
 	@GetMapping("/delete") //para llamar con vacantes/delete?id=3, por ejemplo. Notese que el nombre del atributo Si viaja junto al valor de este. Al pasar el mouse por encima del link SI se ve la url a la que nos dirigira si lo presionamos
 	public String eliminar(@RequestParam("id") int idVacante, Model model) { //@RequestParam es mas apropiado para manipular bases de datos a traves de botones en nuestras vistas html
