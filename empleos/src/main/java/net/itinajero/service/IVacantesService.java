@@ -8,4 +8,5 @@ import net.itinajero.modelo.Vacante;
 public interface IVacantesService {
 		List<Vacante>buscarTodas(); //metodo a implementar en clase de servicio
 		Vacante buscarPorId(Integer idVacante);
+		void guardar (Vacante vacante);
 }
