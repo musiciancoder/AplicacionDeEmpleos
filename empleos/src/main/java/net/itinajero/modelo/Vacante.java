@@ -9,7 +9,7 @@ public class Vacante {
 	private String descripcion;
 	private Date fecha;
 	private Double salario;
-	private Integer de;
+	private Integer destacado;
 	private String imagen="no-image,png"; //por defecto va a tener este valor
 	private String estatus;
 	private String detalles;
@@ -33,11 +33,11 @@ public class Vacante {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
-	public Integer getDe() {
-		return de;
+	public Integer getDestacado() {
+		return destacado;
 	}
-	public void setDe(Integer de) {
-		this.de = de;
+	public void setDestacado(Integer destacado) {
+		this.destacado = destacado;
 	}
 	public Integer getId() {
 		return id;
@@ -72,7 +72,7 @@ public class Vacante {
 	@Override
 	public String toString() {
 		return "Vacante [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", fecha=" + fecha
-				+ ", salario=" + salario + ", de=" + de + ", imagen=" + imagen + ", estatus=" + estatus + ", detalles="
+				+ ", salario=" + salario + ", destacado=" + destacado + ", imagen=" + imagen + ", estatus=" + estatus + ", detalles="
 				+ detalles + "]";
 	}
 	

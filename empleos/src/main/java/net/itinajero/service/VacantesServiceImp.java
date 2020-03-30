@@ -38,7 +38,7 @@ public class VacantesServiceImp implements IVacantesService {
 			vacante1.setDescripcion("Internista");
 			vacante1.setFecha(sdf.parse("02-03-2020"));
 			vacante1.setSalario(14000.0);
-			vacante1.setDe(1);
+			vacante1.setDestacado(1);
 			vacante1.setImagen("logo1.png");
 			
 			
@@ -48,7 +48,7 @@ public class VacantesServiceImp implements IVacantesService {
 			vacante2.setDescripcion("Junior");
 			vacante2.setFecha(sdf.parse("01-04-2020"));
 			vacante2.setSalario(10000.0);
-			vacante2.setDe(0);
+			vacante2.setDestacado(0);
 			vacante2.setImagen("logo2.png");
 			
 			Vacante vacante3= new Vacante();
@@ -57,7 +57,7 @@ public class VacantesServiceImp implements IVacantesService {
 			vacante3.setDescripcion("Ayudante");
 			vacante3.setFecha(sdf.parse("04-04-2020"));
 			vacante3.setSalario(2000.0);
-			vacante3.setDe(0);
+			vacante3.setDestacado(0);
 			vacante3.setImagen("logo3.png");
 			
 			Vacante vacante4= new Vacante();
@@ -66,7 +66,7 @@ public class VacantesServiceImp implements IVacantesService {
 			vacante4.setDescripcion("Albañil");
 			vacante4.setFecha(sdf.parse("04-05-2020"));
 			vacante4.setSalario(1590.0);
-			vacante4.setDe(1);
+			vacante4.setDestacado(1);
 			vacante4.setImagen("logo4.png");
 			
 			lista.add(vacante1);
