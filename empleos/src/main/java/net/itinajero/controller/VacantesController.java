@@ -49,13 +49,15 @@ public class VacantesController {
 	 * VACANTE; ASI SE HACE CON SPRING BOOT !!
 	 */
 	@PostMapping("/save")
-	public String guardar(Vacante vacante) { // notese que no se usa @RequestParam, solo basta con un objeto de la clase
+	public String guardar(Vacante vacante, BindingResult result) { // notese que no se usa @RequestParam, solo basta con un objeto de la clase
 												// modelo (Vacante en este caso). BINDING RESULT tiene los metodos para control de errores en formularios (por ejemplo si se escribe un String en ve
-		/*
-		 * if (result.hasErrors()) { for (ObjectError error: result.getAllErrors()){
-		 * System.out.println("Ocurrio un error: " + error.getDefaultMessage()); }
-		 * return "vacantes/formVacante"; }
-		 */
+		
+		  if (result.hasErrors()) { 
+		  for (ObjectError error: result.getAllErrors()){
+		  System.out.println("Ocurrio un error: " + error.getDefaultMessage()); 
+		  }
+		  return "vacantes/formVacante"; }
+		 
 
 		serviceVacantes.guardar(vacante);
 		System.out.println("Vacante: " + vacante);
