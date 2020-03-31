@@ -81,7 +81,7 @@
 								<label for="categoria">Categoría</label>
 
 								<!-- 	RENDERIZACION DINAMICA DE CATEGORIAS -->
-								<select class="form-control" name="categoria" id="categoria">
+								<select class="form-control" th:field="*{categoria.id}">
 									<option th:each="categoria: ${categorias}"
 										th:value="${categoria.Id}" th:text="${categoria.nombre}"></option>
 								</select>
