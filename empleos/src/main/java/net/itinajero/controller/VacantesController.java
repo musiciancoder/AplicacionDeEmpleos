@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import net.itinajero.modelo.Categoria;
 import net.itinajero.modelo.Vacante;
+import net.itinajero.service.ICategoriasService;
 import net.itinajero.service.IVacantesService;
 
 @Controller
@@ -29,6 +31,9 @@ public class VacantesController {
 	// INYECCION DE DEPENDENCIAS
 	@Autowired
 	private IVacantesService serviceVacantes;
+	
+	@Autowired
+	private ICategoriasService serviceCategorias;
 	
 	// Solucion método mostrarIndex
 
@@ -40,8 +45,9 @@ public class VacantesController {
 	}
 
 	@GetMapping("/create")
-	public String crear (Vacante vacante) { //Se pasa como argumento un objeto de la clase modelo, esto (conjuntamente con la anotacion th:object="${vacante}" en el formulario) tiene como funcion vincular el formulario con la clase modelo Vacante. Es necesario, sino la app se cae 
-
+	public String crear (Vacante vacante, Model model) { //Se pasa como argumento un objeto de la clase modelo, esto (conjuntamente con la anotacion th:object="${vacante}" en el formulario) tiene como funcion vincular el formulario con la clase modelo Vacante. Es necesario, sino la app se cae 
+		List <Categoria> lista= serviceCategorias.buscarTodas();
+		model.addAttribute("categorias", lista);
 		return "vacantes/formVacante";
 	}
 

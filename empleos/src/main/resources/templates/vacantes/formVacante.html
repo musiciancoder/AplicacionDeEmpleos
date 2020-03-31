@@ -21,8 +21,10 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
-	<script>
-tinymce.init({ selector: '#mytextarea' });
+<script>
+	tinymce.init({
+		selector : '#mytextarea'
+	});
 </script>
 </head>
 
@@ -47,25 +49,27 @@ tinymce.init({ selector: '#mytextarea' });
 
 
 				<!-- CON th:object="${vacante} VINCULAMOS EL FORMULARIO CON LA CLASE DE MODELO VACANTE (NO SE USA SI ELEJIMOS VINCULAR CON REQUESTPARAM -->
-				<form th:action="@{/vacantes/save}" method="post" th:object="${vacante}">
+				<form th:action="@{/vacantes/save}" method="post"
+					th:object="${vacante}">
 
-		
 
-<!--  VINCULAMOS CADA INPUT CON UN ATRIBUTO DE LA CLASE MODELO. CON REQUESTPARAM VINCULAMOS CON NAME, SINO VINCULAMOS CON FIELD  -->
+
+					<!--  VINCULAMOS CADA INPUT CON UN ATRIBUTO DE LA CLASE MODELO. CON REQUESTPARAM VINCULAMOS CON NAME, SINO VINCULAMOS CON FIELD  -->
 
 					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="nombre">Nombre</label> <input type="text"
-									class="form-control" id="nombre" field="*{nombre}" name="nombre"
-									placeholder="Titulo de la oferta de trabajo"
+									class="form-control" id="nombre" field="*{nombre}"
+									name="nombre" placeholder="Titulo de la oferta de trabajo"
 									required="required">
 							</div>
 						</div>
 						<div class="col-md-9">
 							<div class="form-group">
 								<label for="descripcion">Descripción</label> <input type="text"
-									class="form-control" id="descripcion" field="*{descripcion}" name="descripcion"
+									class="form-control" id="descripcion" field="*{descripcion}"
+									name="descripcion"
 									placeholder="Breve descripcion de la oferta de trabajo"
 									required="required">
 							</div>
@@ -74,13 +78,12 @@ tinymce.init({ selector: '#mytextarea' });
 					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group">
-								<label for="categoria">Categoría</label> <select
-									class="form-control" field="*{categoria}" name="categoria" id="categoria">
-									<option value="1">Ventas</option>
-									<option value="2">Contabilidad</option>
-									<option value="3">Transporte</option>
-									<option value="4">Informatica</option>
-									<option value="5">Construccion</option>
+								<label for="categoria">Categoría</label>
+
+								<!-- 	RENDERIZACION DINAMICA DE CATEGORIAS -->
+								<select class="form-control" name="categoria" id="categoria">
+									<option th:each="categoria: ${categorias}"
+										th:value="${categoria.Id}" th:text="${categoria.nombre}"></option>
 								</select>
 							</div>
 						</div>
@@ -88,7 +91,8 @@ tinymce.init({ selector: '#mytextarea' });
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="estatus">Estatus</label> <select
-									class="form-control" field="*{estatus}" name="estatus" id="estatus">
+									class="form-control" field="*{estatus}" name="estatus"
+									id="estatus">
 									<option value="Creada">Creada</option>
 									<option value="Aprobada">Aprobada</option>
 									<option value="Eliminada">Eliminada</option>
@@ -98,8 +102,8 @@ tinymce.init({ selector: '#mytextarea' });
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="fecha">Fecha de Publicación</label> <input
-									type="text" class="form-control" field="*{fecha}" name="fecha" id="fecha"
-									placeholder="Fecha de publicacion">
+									type="text" class="form-control" field="*{fecha}" name="fecha"
+									id="fecha" placeholder="Fecha de publicacion">
 							</div>
 						</div>
 						<div class="col-md-3">
@@ -120,8 +124,8 @@ tinymce.init({ selector: '#mytextarea' });
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="salario">Salario Ofrecido (Aprox)</label> <input
-									type="text" class="form-control" field="*{salario}" name="salario" id="salario"
-									placeholder="Salario aproximado.">
+									type="text" class="form-control" field="*{salario}"
+									name="salario" id="salario" placeholder="Salario aproximado.">
 							</div>
 						</div>
 						<div class="col-md-3">
@@ -137,8 +141,8 @@ tinymce.init({ selector: '#mytextarea' });
 						<div class="col-md-9">
 							<div class="form-group">
 								<label for="detalles"><strong>Detalles</strong></label>
-								<textarea  id="mytextarea" class="form-control" field="*{detalles}" name="detalles" 
-									rows="7">Hello world!</textarea>
+								<textarea id="mytextarea" class="form-control"
+									field="*{detalles}" name="detalles" rows="7">Hello world!</textarea>
 							</div>
 						</div>
 						<div class="col-md-3">
@@ -173,15 +177,13 @@ tinymce.init({ selector: '#mytextarea' });
 			});
 		});
 
-		
-		tinymce.init({
-		    selector: '#detalles',
-		    plugins: "textcolor, table lists code",
-		    toolbar: " undo redo | bold italic | alignleft aligncenter alignright alignjustify \n\
+		tinymce
+				.init({
+					selector : '#detalles',
+					plugins : "textcolor, table lists code",
+					toolbar : " undo redo | bold italic | alignleft aligncenter alignright alignjustify \n\
 		              | bullist numlist outdent indent | forecolor backcolor table code"
-		});
-		
-		 
+				});
 	</script>
 
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
