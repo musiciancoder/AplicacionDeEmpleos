@@ -46,18 +46,18 @@ tinymce.init({ selector: '#mytextarea' });
 
 
 
-				<!-- CON th:object="${vacante} VINCULAMOS EL FORMULARIO CON LA CLASE DE MODELO VACANTE -->
-				<form th:action="@{/vacantes/save}" method="post">
+				<!-- CON th:object="${vacante} VINCULAMOS EL FORMULARIO CON LA CLASE DE MODELO VACANTE (NO SE USA SI ELEJIMOS VINCULAR CON REQUESTPARAM -->
+				<form th:action="@{/vacantes/save}" method="post" th:object="${vacante}">
 
 		
 
-
+<!--  VINCULAMOS CADA INPUT CON UN ATRIBUTO DE LA CLASE MODELO. CON REQUESTPARAM VINCULAMOS CON NAME, SINO VINCULAMOS CON FIELD  -->
 
 					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="nombre">Nombre</label> <input type="text"
-									class="form-control" id="nombre" name="nombre"
+									class="form-control" id="nombre" field="*{nombre}" name="nombre"
 									placeholder="Titulo de la oferta de trabajo"
 									required="required">
 							</div>
@@ -65,7 +65,7 @@ tinymce.init({ selector: '#mytextarea' });
 						<div class="col-md-9">
 							<div class="form-group">
 								<label for="descripcion">Descripción</label> <input type="text"
-									class="form-control" id="descripcion" name="descripcion"
+									class="form-control" id="descripcion" field="*{descripcion}" name="descripcion"
 									placeholder="Breve descripcion de la oferta de trabajo"
 									required="required">
 							</div>
@@ -75,7 +75,7 @@ tinymce.init({ selector: '#mytextarea' });
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="categoria">Categoría</label> <select
-									class="form-control" name="categoria" id="categoria">
+									class="form-control" field="*{categoria}" name="categoria" id="categoria">
 									<option value="1">Ventas</option>
 									<option value="2">Contabilidad</option>
 									<option value="3">Transporte</option>
@@ -88,7 +88,7 @@ tinymce.init({ selector: '#mytextarea' });
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="estatus">Estatus</label> <select
-									class="form-control" name="estatus" id="estatus">
+									class="form-control" field="*{estatus}" name="estatus" id="estatus">
 									<option value="Creada">Creada</option>
 									<option value="Aprobada">Aprobada</option>
 									<option value="Eliminada">Eliminada</option>
@@ -98,7 +98,7 @@ tinymce.init({ selector: '#mytextarea' });
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="fecha">Fecha de Publicación</label> <input
-									type="text" class="form-control" name="fecha" id="fecha"
+									type="text" class="form-control" field="*{fecha}" name="fecha" id="fecha"
 									placeholder="Fecha de publicacion">
 							</div>
 						</div>
@@ -120,7 +120,7 @@ tinymce.init({ selector: '#mytextarea' });
 						<div class="col-md-3">
 							<div class="form-group">
 								<label for="salario">Salario Ofrecido (Aprox)</label> <input
-									type="text" class="form-control" name="salario" id="salario"
+									type="text" class="form-control" field="*{salario}" name="salario" id="salario"
 									placeholder="Salario aproximado.">
 							</div>
 						</div>
@@ -137,7 +137,7 @@ tinymce.init({ selector: '#mytextarea' });
 						<div class="col-md-9">
 							<div class="form-group">
 								<label for="detalles"><strong>Detalles</strong></label>
-								<textarea  id="mytextarea" class="form-control" name="detalles" 
+								<textarea  id="mytextarea" class="form-control" field="*{detalles}" name="detalles" 
 									rows="7">Hello world!</textarea>
 							</div>
 						</div>
