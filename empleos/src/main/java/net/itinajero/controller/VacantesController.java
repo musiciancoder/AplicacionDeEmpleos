@@ -62,7 +62,7 @@ public class VacantesController {
 		serviceVacantes.guardar(vacante);
 		System.out.println("Vacante: " + vacante);
 
-		return "vacantes/listVacantes";
+		return "redirect:/vacantes/index"; //si escribimos return "vacantes/list" no va a renderizar el nuevo objeto q hemos guardado al enviar el formulario, porque en este metodo no hay ningun model.addAtribute y por lo mismo debemos redireccionar al otro metodo que si lo tiene
 	}
 	/*
 	 * METODO Q SE EJECUTA AL HACER CLICK EN BOTON GUARDAR, EN FORMULARIO PARA CREAR
