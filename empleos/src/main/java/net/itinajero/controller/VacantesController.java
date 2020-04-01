@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.itinajero.modelo.Categoria;
 import net.itinajero.modelo.Vacante;
 import net.itinajero.service.ICategoriasService;
 import net.itinajero.service.IVacantesService;
+import net.itinajero.util.Utileria;
 
 @Controller
 @RequestMapping("/vacantes")
@@ -31,10 +33,10 @@ public class VacantesController {
 	// INYECCION DE DEPENDENCIAS
 	@Autowired
 	private IVacantesService serviceVacantes;
-	
+
 	@Autowired
 	private ICategoriasService serviceCategorias;
-	
+
 	// Solucion método mostrarIndex
 
 	@GetMapping("/index")
@@ -45,8 +47,11 @@ public class VacantesController {
 	}
 
 	@GetMapping("/create")
-	public String crear (Vacante vacante, Model model) { //Se pasa como argumento un objeto de la clase modelo, esto (conjuntamente con la anotacion th:object="${vacante}" en el formulario) tiene como funcion vincular el formulario con la clase modelo Vacante. Es necesario, sino la app se cae 
-		List <Categoria> lista= serviceCategorias.buscarTodas();
+	public String crear(Vacante vacante, Model model) { // Se pasa como argumento un objeto de la clase modelo, esto
+														// (conjuntamente con la anotacion th:object="${vacante}" en el
+														// formulario) tiene como funcion vincular el formulario con la
+														// clase modelo Vacante. Es necesario, sino la app se cae
+		List<Categoria> lista = serviceCategorias.buscarTodas();
 		model.addAttribute("categorias", lista);
 		return "vacantes/formVacante";
 	}
@@ -56,22 +61,48 @@ public class VacantesController {
 	 * VACANTE; ASI SE HACE CON SPRING BOOT !!
 	 */
 	@PostMapping("/save")
-	public String guardar(Vacante vacante, BindingResult result,  RedirectAttributes attributes){ // notese que no se usa @RequestParam, solo basta con un objeto de la clase
-												// modelo (Vacante en este caso). BINDING RESULT tiene los metodos para control de errores en formularios (por ejemplo si se escribe un String en ve
+	public String guardar(Vacante vacante, BindingResult result, RedirectAttributes attributes,
+			@RequestParam("archivoImagen") MultipartFile multiPart) { // notese que se usa @RequestParam solo para la
+																		// subida de archivos, pero no para binding en
+																		// inputs tipo text, solo basta con un objeto de
+																		// la clase
+		// modelo (Vacante en este caso). BINDING RESULT tiene los metodos para control
+		// de errores en formularios (por ejemplo si se escribe un String en ve
+
+		if (result.hasErrors()) {
+			for (ObjectError error : result.getAllErrors()) {
+				System.out.println("Ocurrio un error: " + error.getDefaultMessage());
+			}
+			return "vacantes/formVacante";
+		}
+
+		// CODIGO PARA SUBIR IMAGENES EN EL INPUT CON NAME archivoImagen
 		
-		  if (result.hasErrors()) { 
-		  for (ObjectError error: result.getAllErrors()){
-		  System.out.println("Ocurrio un error: " + error.getDefaultMessage()); 
-		  }
-		  return "vacantes/formVacante"; }
-		 
+		if (!multiPart.isEmpty()) {
+			// String ruta = "/empleos/img-vacantes/"; // Linux/MAC
+			String ruta = "c:/empleos/img-vacantes/"; // Windows
+			String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
+			if (nombreImagen != null) { // La imagen si se subio
+				// Procesamos la variable nombreImagen
+				vacante.setImagen(nombreImagen);
+			}
+		}
+
+		//
 
 		serviceVacantes.guardar(vacante);
-		attributes.addFlashAttribute("msg", "Registro Guardado"); //FlashAtributes se ocupa en vez de model.Addatributecuando estamos redireccionando a otro metodo en return. Se mostrara el mensaje en la vista solo si guardamos una nueva vacante exitosamente
+		attributes.addFlashAttribute("msg", "Registro Guardado"); // FlashAtributes se ocupa en vez de
+																	// model.Addatributecuando estamos redireccionando a
+																	// otro metodo en return. Se mostrara el mensaje en
+																	// la vista solo si guardamos una nueva vacante
+																	// exitosamente
 
 		System.out.println("Vacante: " + vacante);
 
-		return "redirect:/vacantes/index"; //si escribimos return "vacantes/list" no va a renderizar el nuevo objeto q hemos guardado al enviar el formulario, porque en este metodo no hay ningun model.addAtribute y por lo mismo debemos redireccionar al otro metodo que si lo tiene
+		return "redirect:/vacantes/index"; // si escribimos return "vacantes/list" no va a renderizar el nuevo objeto q
+											// hemos guardado al enviar el formulario, porque en este metodo no hay
+											// ningun model.addAtribute y por lo mismo debemos redireccionar al otro
+											// metodo que si lo tiene
 	}
 	/*
 	 * METODO Q SE EJECUTA AL HACER CLICK EN BOTON GUARDAR, EN FORMULARIO PARA CREAR
