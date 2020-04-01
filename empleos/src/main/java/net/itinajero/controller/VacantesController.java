@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,10 @@ import net.itinajero.util.Utileria;
 @RequestMapping("/vacantes")
 public class VacantesController {
 
+	//Con @Value definimos una ruta para guardar archivos en nuestra app cuando el usuario los suba. Previamente debemos configurar en archivo resources/aplication.properties 
+	@Value("{$empleosapp.ruta.imagenes}")
+	private String ruta;
+	
 	// INYECCION DE DEPENDENCIAS
 	@Autowired
 	private IVacantesService serviceVacantes;
@@ -80,7 +85,7 @@ public class VacantesController {
 		
 		if (!multiPart.isEmpty()) {
 			// String ruta = "/empleos/img-vacantes/"; // Linux/MAC
-			String ruta = "c:/empleos/img-vacantes/"; // Windows
+			//String ruta = "c:/empleos/img-vacantes/"; // Windows
 			String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
 			if (nombreImagen != null) { // La imagen si se subio
 				// Procesamos la variable nombreImagen
