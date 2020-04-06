@@ -1,16 +1,25 @@
 package net.itinajero.modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="categorias") //nombre de la tabla en MYSQL. //recordar q el nombre de la BBDD lo configuramos en archivo application.properties
 public class Categoria {
 	
-	private Integer Id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)//para que el id sea autoincrementable. IDENTITY ES SOLO PARA MYSQL.
+	private Integer id;//este es el idCategoria de la tabla vacantes. Notese que aca simplemente lo definimos como id.
 	private String nombre;
 	private String descripcion;
 	public Integer getId() {
-		return Id;
+		return id;
 	}
-	public void setId(Integer Id) {
-		this.Id = Id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getNombre() {
 		return nombre;
@@ -26,7 +35,7 @@ public class Categoria {
 	}
 	@Override
 	public String toString() {
-		return "Categoria [idCategoria=" + Id + ", nombre=" + nombre + ", descripcion=" + descripcion + "]";
+		return "Categoria [idCategoria=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + "]";
 	}
 
 }
