@@ -135,6 +135,7 @@ public class VacantesController {
 		return "mensaje";
 	}
 
+	//Al hacer click en boton detalle
 	@GetMapping("/view/{id}") // para llamar con vacantes/view/3, por ejemplo. Notese que el nombre del
 								// atributo NO viaja, solo el valor de este. Al pasar el mouse por encima del
 								// link NO se ve nada

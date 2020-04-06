@@ -8,8 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
+import net.itinajero.modelo.Categoria;
 import net.itinajero.modelo.Vacante;
+import net.itinajero.service.ICategoriasService;
 import net.itinajero.service.IVacantesService;
 
 @Controller
@@ -18,6 +19,9 @@ public class HomeController {
 	//INYECCION DE DEPENDENCIAS
 	@Autowired
 	private IVacantesService serviceVacantes;
+	
+	@Autowired
+	private ICategoriasService serviceCategorias;
 	
 	@GetMapping("/tabla")
 	public String mostrarTabla (Model model) {
@@ -80,6 +84,7 @@ public class HomeController {
 	@ModelAttribute //con esto declaramos atributos al modelo que estaran disponibles para todos los metodos de la clase HomeController
 	public void setGenericos(Model model) {
 		model.addAttribute("vacantes", serviceVacantes.buscarDestacadas());
+		model.addAttribute("categorias", serviceCategorias.buscarTodas());
 	}
 	
 	
