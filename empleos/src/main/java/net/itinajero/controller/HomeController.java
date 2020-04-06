@@ -1,6 +1,5 @@
 package net.itinajero.controller;
 
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import net.itinajero.modelo.Vacante;
 import net.itinajero.service.IVacantesService;
@@ -67,11 +67,19 @@ public class HomeController {
 		 * (en este caso un string) model.addAttribute("fecha", new Date()); //en este
 		 * caso el objeto es una fecha
 		 */		
-		List <Vacante>lista= serviceVacantes.buscarTodas() ; //USO DE INY DE DEPENDENCIAS
-		model.addAttribute("vacantes", lista);
 		
+		/*ESTE CODIGO LO ELIMINO AL DECLARAR MAS ABAJO EL METODO setGenericos(Model model)
+		//EJECUCION DE INY DE DEPENDENCIAS CON serviceVacantes
+		List <Vacante>lista= serviceVacantes.buscarTodas() ; 
+		model.addAttribute("vacantes", lista);
+		*/
 		return "home"; //nunca se necesita la extension. en spring en el controlado se puede retornar un objeto (html) que no coincide con el tipo definido inicialmente en el metodo
 		
+	}
+	
+	@ModelAttribute //con esto declaramos atributos al modelo que estaran disponibles para todos los metodos de la clase HomeController
+	public void setGenericos(Model model) {
+		model.addAttribute("vacantes", serviceVacantes.buscarDestacadas());
 	}
 	
 	

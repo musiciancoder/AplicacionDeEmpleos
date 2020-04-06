@@ -9,4 +9,5 @@ public interface IVacantesService {
 		List<Vacante>buscarTodas(); //metodo a implementar en clase de servicio
 		Vacante buscarPorId(Integer idVacante);
 		void guardar (Vacante vacante);
+		List <Vacante> buscarDestacadas();
 }
