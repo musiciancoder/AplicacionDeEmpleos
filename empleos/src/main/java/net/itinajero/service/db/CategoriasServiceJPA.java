@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import net.itinajero.modelo.Categoria;
@@ -12,7 +13,8 @@ import net.itinajero.service.ICategoriasService;
 
 //CLASE DE SERVICIO PARA HACER INY POR DEPENDENCIAS EN EL CONTROLADOR
 @Service
-public class CategoriasService implements ICategoriasService{
+@Primary //Notar que la clase categoriaCerviceImpl tambien implementa la interfaz ICategoriasService, esto causa un error porque Spring es singleton. Con @Primary le indicamos que solo ocupe esta clase, y nos evitamos el error 
+public class CategoriasServiceJPA implements ICategoriasService{
 
 	//Ejecucion de Iny de dependencias de repositorio
 	@Autowired

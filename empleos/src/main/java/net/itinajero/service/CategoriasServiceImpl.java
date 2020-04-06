@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import net.itinajero.modelo.Categoria;
 
 @Service
+//No tiene la anotacion @Primary, por lo que se ignora.
 public class CategoriasServiceImpl implements ICategoriasService{
 
 	private List<Categoria> lista = null;
