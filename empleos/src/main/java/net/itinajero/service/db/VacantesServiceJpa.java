@@ -26,9 +26,9 @@ public class VacantesServiceJpa implements IVacantesService {
 
 	@Override
 	public Vacante buscarPorId(Integer idVacante) {
-	Optional <Vacante> vacante = vacantesRepo.findById(idVacante);
-		if (vacante.isPresent()) {
-		return	vacante.get();
+	Optional <Vacante> optional = vacantesRepo.findById(idVacante);
+		if (optional.isPresent()) {
+		return	optional.get();
 			
 		}
 			return null;
