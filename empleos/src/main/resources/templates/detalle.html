@@ -49,8 +49,9 @@
 
 		<div class="row">
 			<div class="col-md-3">
+							      <!--    /logos/ es una carpeta definida en archivo WebConfig  -->
 				<img class="rounded mx-auto d-block"
-					th:src="@{/images/{img} (img=${vacante.imagen})}"
+					th:src="@{/logos/{img} (img=${vacante.imagen})}"
 					alt="Generic placeholder image" width="220" height="220">
 			</div>
 			<div class="col-md-9">
