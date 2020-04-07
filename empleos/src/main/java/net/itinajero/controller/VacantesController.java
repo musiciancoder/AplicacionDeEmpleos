@@ -124,15 +124,19 @@ public class VacantesController {
 	 * return "vacantes/listVacantes"; }
 	 */
 
-	@GetMapping("/delete") // para llamar con vacantes/delete?id=3, por ejemplo. Notese que el nombre del
+	@GetMapping("/delete/{id}") // para llamar con vacantes/delete?id=3, por ejemplo. Notese que el nombre del
 							// atributo Si viaja junto al valor de este. Al pasar el mouse por encima del
 							// link SI se ve la url a la que nos dirigira si lo presionamos
-	public String eliminar(@RequestParam("id") int idVacante, Model model) { // @RequestParam es mas apropiado para
+	public String eliminar(@PathVariable("id") int idVacante,  RedirectAttributes attributes) { // @RequestParam es mas apropiado para
 																				// manipular bases de datos a traves de
 																				// botones en nuestras vistas html
 		System.out.println("Eliminando vacante con id :" + idVacante);
-		model.addAttribute("id", idVacante);
-		return "mensaje";
+		
+		serviceVacantes.eliminar(idVacante);
+		
+		attributes.addFlashAttribute("msg", "La vacante fue eliminada");
+	    
+		return "redirect:/vacantes/index";
 	}
 
 	//Al hacer click en boton detalle
