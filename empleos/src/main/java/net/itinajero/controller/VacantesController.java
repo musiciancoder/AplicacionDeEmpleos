@@ -14,6 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,24 +50,30 @@ public class VacantesController {
 	@GetMapping("/index")
 	public String mostrarIndex(Model model) {
 		List<Vacante> lista = serviceVacantes.buscarTodas();
+		//con setGenericos estan disponibles tambien las categorias
 		model.addAttribute("vacantes", lista);
 		return "vacantes/listVacantes";
 	}
 
+	//AL HAVER CLICK EN BOTON AZUL "NUEVA"
 	@GetMapping("/create")
 	public String crear(Vacante vacante, Model model) { // Se pasa como argumento un objeto de la clase modelo, esto
 														// (conjuntamente con la anotacion th:object="${vacante}" en el
 														// formulario) tiene como funcion vincular el formulario con la
 														// clase modelo Vacante. Es necesario, sino la app se cae
-		List<Categoria> lista = serviceCategorias.buscarTodas();
-		model.addAttribute("categorias", lista);
+	
+		model.addAttribute("vacante", vacante);
 		return "vacantes/formVacante";
 	}
+	
+	
+	
 
-	/*
-	 * METODO Q SE EJECUTA AL HACER CLICK EN BOTON GUARDAR, EN FORMULARIO PARA CREAR
-	 * VACANTE; ASI SE HACE CON SPRING BOOT !!
-	 */
+	
+	 // METODO Q SE EJECUTA AL HACER CLICK EN BOTON GUARDAR, EN FORMULARIO PARA CREAR
+	// VACANTE; ASI SE HACE CON SPRING BOOT !!
+	 
+	//YA QUE EL MISMO FORMULARIO FORMVACANTE ADEMAS SE OCUPA PARA EDITAR, RECIBIMOS DEL FORMULARIO COMO "HIDDEN" EL ID Y LA IMAGEN (EN EL CASO QUE ESTEMOS EDITANDO) Y SPRINGBOOT AUTOMATICAMENTE HACE UN SETID SETIMAGEN CON ESTOS VALORES
 	@PostMapping("/save")
 	public String guardar(Vacante vacante, BindingResult result, RedirectAttributes attributes,
 			@RequestParam("archivoImagen") MultipartFile multiPart) { // notese que se usa @RequestParam solo para la
@@ -123,7 +130,10 @@ public class VacantesController {
 	 * 
 	 * return "vacantes/listVacantes"; }
 	 */
+	
+	
 
+	//CUANDO HACEMOS CLICK EN EL BOTON ELIMINAR EN LA URL VACANTES/INDEX QUE EJECUTA EL METODO MOSTRARINDEX RENDERIZANDO listVacantes
 	@GetMapping("/delete/{id}") // para llamar con vacantes/delete?id=3, por ejemplo. Notese que el nombre del
 							// atributo Si viaja junto al valor de este. Al pasar el mouse por encima del
 							// link SI se ve la url a la que nos dirigira si lo presionamos
@@ -131,12 +141,27 @@ public class VacantesController {
 																				// manipular bases de datos a traves de
 																				// botones en nuestras vistas html
 		System.out.println("Eliminando vacante con id :" + idVacante);
-		
 		serviceVacantes.eliminar(idVacante);
-		
 		attributes.addFlashAttribute("msg", "La vacante fue eliminada");
 	    
-		return "redirect:/vacantes/index";
+		return "redirect:/vacantes/index"; //EN GENERAL SIEMPRE USAMOS REDIRECT EJECUTAMOS ALGUN METODO Q MODIFICA ALGO EN LA BASE DE DATOS
+	}
+	
+	
+	
+	
+	
+	
+	//AL HACER CLICK EN BOTON VERDE EDITAR (para editar alguna vacante)
+	@GetMapping("/edit/{id}")
+	public String editar(@PathVariable("id") int idVacante, Model model) {
+		Vacante vacante = serviceVacantes.buscarPorId(idVacante);
+		model.addAttribute("vacante", vacante);
+		
+		return "vacantes/formVacante";
+		
+		
+		
 	}
 
 	//Al hacer click en boton detalle
@@ -155,6 +180,13 @@ public class VacantesController {
 
 		return "detalle";
 
+	}
+	
+	//DISPONIBLE PARA TODOS LOS METODOS DE ESTA CLASE
+	@ModelAttribute
+	public void setGenericos(Model model) {
+		model.addAttribute("categorias", serviceCategorias.buscarTodas());
+		
 	}
 
 	// @InitBinder permite customizar el formato de entrada de algun dato (en este
