@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -110,7 +111,12 @@ public class HomeController {
 	@GetMapping("/search")
 	public String buscar(@ModelAttribute ("search") Vacante vacante, Model model) { //Data Binding, con @ModelAttribute ("search") lo que hay en el modelo y con Vacante vacante lo q llega del formulario
 		System.out.println("Buscando por: " + vacante);
-		Example<Vacante> example =Example.of(vacante); //metodo of crea un example, que es un objeto formado con los atributos que no son nulos, es decir los filtros (atributos) que SI hemos seleccionado en la busqueda por filtros
+		
+		//Para q el usuario haga una busqueda por alguna palabra en especifico en el input de la descripcion
+		ExampleMatcher matcher = ExampleMatcher.matching().withMatcher("descripcion", ExampleMatcher.GenericPropertyMatchers.contains());
+		
+		//Example<Vacante> example =Example.of(vacante); //metodo of crea un example, que es un objeto formado con los atributos que no son nulos, es decir los filtros (atributos) que SI hemos seleccionado en la busqueda por filtros
+		Example<Vacante> example =Example.of(vacante, matcher); 
 		List<Vacante> lista = serviceVacantes.buscarByExample(example); 
 		model.addAttribute("vacantes", lista);
 		return "home";
