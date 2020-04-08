@@ -15,7 +15,7 @@ public class Vacante {
 	private Date fecha;
 	private Double salario;
 	private Integer destacado;
-	private String imagen = "no-image,png"; // por defecto va a tener este valor
+	private String imagen = "no-image.png"; // por defecto va a tener este valor
 	private String estatus;
 	private String detalles;
 
@@ -105,6 +105,11 @@ public class Vacante {
 
 	public void setSalario(Double salario) {
 		this.salario = salario;
+	}
+	
+	//PARA QUE SE ENVIE NINGUNA IMAGEN CUANDO EL USUARIO BUSCA UNA VACANTE
+	public void reset() {
+		this.imagen=null;
 	}
 
 	@Override

@@ -4,28 +4,37 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import net.itinajero.modelo.Categoria;
 import net.itinajero.modelo.Usuario;
 import net.itinajero.modelo.Vacante;
 import net.itinajero.service.ICategoriasService;
+import net.itinajero.service.IUsuariosService;
 import net.itinajero.service.IVacantesService;
 
 @Controller
 public class HomeController {
 	
 	//INYECCION DE DEPENDENCIAS
-	@Autowired
-	private IVacantesService serviceVacantes;
 	
 	@Autowired
 	private ICategoriasService serviceCategorias;
+	
+	@Autowired
+	private IVacantesService serviceVacantes;
+	
+
+	@Autowired
+	private IUsuariosService serviceUsuarios;
 	
 	@GetMapping("/tabla")
 	public String mostrarTabla (Model model) {
@@ -97,11 +106,33 @@ public class HomeController {
 		return "redirect:/usuarios/index";
 	}
 	
+	//Metodo que se ejecuta al enviar el formulario de busqueda de vacantes
+	@GetMapping("/search")
+	public String buscar(@ModelAttribute ("search") Vacante vacante, Model model) { //Data Binding, con @ModelAttribute ("search") lo que hay en el modelo y con Vacante vacante lo q llega del formulario
+		System.out.println("Buscando por: " + vacante);
+		Example<Vacante> example =Example.of(vacante); //metodo of crea un example, que es un objeto formado con los atributos que no son nulos, es decir los filtros (atributos) que SI hemos seleccionado en la busqueda por filtros
+		List<Vacante> lista = serviceVacantes.buscarByExample(example); 
+		model.addAttribute("vacantes", lista);
+		return "home";
+		
+	}
 	
-	@ModelAttribute //con esto declaramos atributos al modelo que estaran disponibles para todos los metodos de la clase HomeController
+	//METODO PERSONALIZADO QUE SI DETECTA STRING VACIOS AL ENVIAR EL FORMULARIO LOS SETEA A NULL. ESTO ES UTIL PARA BUSCAR SOLO POR UN FILTRO (CATEGORIA POR EJEMPLO), DEJANDO LOS OTROS VACIOS (DESCRIPCION VACIA POR EJEMPLO)
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+	}
+	
+	
+	
+	@ModelAttribute //con esto declaramos atributos al modelo que estaran disponibles y presentes implicitamente en cada uno de los metodos de la clase HomeController
 	public void setGenericos(Model model) {
+		Vacante vacanteSearch = new Vacante(); //para buscar vacantes de trabajo
+		vacanteSearch.reset(); //metodo definido en la clase de modelo Vacante para omitir imagenes en la busqueda
 		model.addAttribute("vacantes", serviceVacantes.buscarDestacadas());
 		model.addAttribute("categorias", serviceCategorias.buscarTodas());
+		model.addAttribute("usuarios", serviceUsuarios.buscarTodos());
+		model.addAttribute("search", vacanteSearch);
 	}
 	
 	
