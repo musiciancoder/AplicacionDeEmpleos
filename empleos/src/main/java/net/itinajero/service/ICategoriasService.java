@@ -9,5 +9,8 @@ public interface ICategoriasService {
 	List<Categoria>buscarTodas(); //metodo a implementar en clase de servicio
 	Categoria buscarPorId(Integer idCategoria);
 	void guardar (Categoria categoria);
+	
+	//Ejercicio implementar metodo
+	void eliminar (Categoria idCategoria);
 
 }

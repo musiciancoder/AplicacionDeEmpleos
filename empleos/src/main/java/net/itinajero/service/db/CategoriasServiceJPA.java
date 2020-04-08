@@ -41,4 +41,10 @@ public class CategoriasServiceJPA implements ICategoriasService{
 		
 	}
 
+	@Override
+	public void eliminar(Categoria idCategoria) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

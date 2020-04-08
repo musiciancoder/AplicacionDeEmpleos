@@ -8,7 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import net.itinajero.modelo.Categoria;
+import net.itinajero.modelo.Usuario;
 import net.itinajero.modelo.Vacante;
 import net.itinajero.service.ICategoriasService;
 import net.itinajero.service.IVacantesService;
@@ -80,6 +84,19 @@ public class HomeController {
 		return "home"; //nunca se necesita la extension. en spring en el controlado se puede retornar un objeto (html) que no coincide con el tipo definido inicialmente en el metodo
 		
 	}
+	
+	
+	
+	@GetMapping("/signup")
+	public String registrarse(Usuario usuario) {
+		return "usuarios/formRegistro";
+	}
+	
+	@PostMapping("/signup")
+	public String guardarRegistro(Usuario usuario, RedirectAttributes attributes) {
+		return "redirect:/usuarios/index";
+	}
+	
 	
 	@ModelAttribute //con esto declaramos atributos al modelo que estaran disponibles para todos los metodos de la clase HomeController
 	public void setGenericos(Model model) {
