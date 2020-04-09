@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import net.itinajero.modelo.Categoria;
 import net.itinajero.modelo.Vacante;
 import net.itinajero.service.ICategoriasService;
 import net.itinajero.service.IVacantesService;
@@ -54,8 +55,16 @@ public class VacantesController {
 		model.addAttribute("vacantes", lista);
 		return "vacantes/listVacantes";
 	}
+	
+	//Metodo para dar paginacion
+	@GetMapping(value = "/indexPaginate")
+	public String mostrarIndexPaginado(Model model, Pageable page) {
+	Page<Vacante> lista = serviceVacantes.buscarTodas(page);
+	model.addAttribute("vacantes", lista);
+	return "vacantes/listVacantes";
+	}
 
-	//AL HAVER CLICK EN BOTON AZUL "NUEVA"
+	//AL HACER CLICK EN BOTON AZUL "NUEVA"
 	@GetMapping("/create")
 	public String crear(Vacante vacante, Model model) { // Se pasa como argumento un objeto de la clase modelo, esto
 														// (conjuntamente con la anotacion th:object="${vacante}" en el

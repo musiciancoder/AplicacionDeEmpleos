@@ -3,6 +3,8 @@ package net.itinajero.service;
 import java.util.List;
 
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import net.itinajero.modelo.Vacante;
 
@@ -14,4 +16,5 @@ public interface IVacantesService {
 		List <Vacante> buscarDestacadas();
 		void eliminar (Integer idVacante);
 		List<Vacante>buscarByExample(Example<Vacante>example);//metodo query q permite formar consultas tipo select tipo filtros web
+		Page<Vacante>buscarTodas(Pageable page);
 }
