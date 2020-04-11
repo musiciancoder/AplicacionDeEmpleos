@@ -3,6 +3,8 @@ package net.itinajero.controller;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Example;
@@ -102,7 +104,7 @@ public class HomeController {
 	
 	//Al presionar el boton INGRESAR en el menu
 	@GetMapping("/index")
-	public String mostrarIndex(Authentication auth) {
+	public String mostrarIndex(Authentication auth, HttpSession sesion) {
 		String username = auth.getName();//recuperar nombre del usuario
 		System.out.println("Nombre del usuario: " + username);
 		
@@ -112,6 +114,16 @@ public class HomeController {
 			
 		}
 		
+		if (sesion.getAttribute("usuario")==null) { //si no existe la sesion, la creamos
+			
+		
+		
+		Usuario usuario = serviceUsuarios.buscarPorUsername(username);
+		usuario.setPassword(null);//definimos que no estara almacenada la contraseña en la sesion
+		System.out.println("usuario: " + usuario);
+		
+		sesion.setAttribute("usuario", usuario);//almacenamos datos en la sesion del usuario
+		}
 		return "redirect:/";
 	}
 	
