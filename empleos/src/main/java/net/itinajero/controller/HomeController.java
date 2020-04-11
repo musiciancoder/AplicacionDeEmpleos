@@ -1,5 +1,6 @@
 package net.itinajero.controller;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import net.itinajero.modelo.Perfil;
 import net.itinajero.modelo.Usuario;
 import net.itinajero.modelo.Vacante;
 import net.itinajero.service.ICategoriasService;
@@ -40,6 +43,9 @@ public class HomeController {
 
 	@Autowired
 	private IUsuariosService serviceUsuarios;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder; //notar que PasswordEncoder no fue definido en clase de servicio, sino en DatabaseWebSecurity mediante @Bean
 	
 	
 	
@@ -127,14 +133,33 @@ public class HomeController {
 		return "redirect:/";
 	}
 	
-	
+	//Al hacer click en boton Registrarse en el menu
 	@GetMapping("/signup")
 	public String registrarse(Usuario usuario) {
 		return "usuarios/formRegistro";
 	}
 	
+	//Al hacer click en boton Registrarse en el formulario de registro
 	@PostMapping("/signup")
 	public String guardarRegistro(Usuario usuario, RedirectAttributes attributes) {
+		
+		String pwdPlano = usuario.getPassword();
+		String pwdEncriptado= passwordEncoder.encode(pwdPlano);//aca encriptamos la contraseña
+		usuario.setPassword(pwdEncriptado);
+		usuario.setEstatus(1); // Activado por defecto
+		usuario.setFechaRegistro(new Date()); // Fecha de Registro, la fecha actual del servidor
+		
+		// Creamos el Perfil que le asignaremos al usuario nuevo
+		Perfil perfil = new Perfil();
+		perfil.setId(3); // Perfil USUARIO
+		usuario.agregar(perfil);
+		
+		/**
+		 * Guardamos el usuario en la base de datos. El Perfil se guarda automaticamente
+		 */
+		serviceUsuarios.guardar(usuario);				
+		attributes.addFlashAttribute("msg", "El registro fue guardado correctamente!");
+		
 		return "redirect:/usuarios/index";
 	}
 	
