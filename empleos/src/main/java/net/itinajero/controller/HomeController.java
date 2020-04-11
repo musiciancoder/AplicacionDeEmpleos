@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -37,12 +38,15 @@ public class HomeController {
 	@Autowired
 	private IUsuariosService serviceUsuarios;
 	
+	
+	
 	@GetMapping("/tabla")
 	public String mostrarTabla (Model model) {
 		List <Vacante>lista= serviceVacantes.buscarTodas() ; //USO DE INY DE DEPENDENCIAS
 		model.addAttribute("vacantes", lista);
 		return "tabla";
 	}
+	
 	
 	
 	
@@ -95,6 +99,13 @@ public class HomeController {
 		
 	}
 	
+	//Al presionar el boton INGRESAR en el menu
+	@GetMapping("/index")
+	public String mostrarIndex(Authentication auth) {
+		String username = auth.getName();//recuperar nombre del usuario
+		System.out.println("Nombre del usuario: " + username);
+		return "redirect:/";
+	}
 	
 	
 	@GetMapping("/signup")
