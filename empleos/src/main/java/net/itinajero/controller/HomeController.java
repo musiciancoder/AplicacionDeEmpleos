@@ -104,7 +104,7 @@ public class HomeController {
 	
 	//Al presionar el boton INGRESAR en el menu
 	@GetMapping("/index")
-	public String mostrarIndex(Authentication auth, HttpSession sesion) {
+	public String mostrarIndex(Authentication auth, HttpSession session) {
 		String username = auth.getName();//recuperar nombre del usuario
 		System.out.println("Nombre del usuario: " + username);
 		
@@ -114,7 +114,7 @@ public class HomeController {
 			
 		}
 		
-		if (sesion.getAttribute("usuario")==null) { //si no existe la sesion, la creamos
+		if (session.getAttribute("usuario")==null) { //si no existe la sesion, la creamos
 			
 		
 		
@@ -122,7 +122,7 @@ public class HomeController {
 		usuario.setPassword(null);//definimos que no estara almacenada la contraseña en la sesion
 		System.out.println("usuario: " + usuario);
 		
-		sesion.setAttribute("usuario", usuario);//almacenamos datos en la sesion del usuario
+		session.setAttribute("usuario", usuario);//almacenamos datos en la sesion del usuario
 		}
 		return "redirect:/";
 	}
