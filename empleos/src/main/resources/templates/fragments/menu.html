@@ -19,8 +19,12 @@
         <a class="nav-link" href="#">Menu 2</a>
       </li>          
     </ul>  
-    <a class="btn btn-primary" th:href="@{/index}">Ingresar</a>&nbsp;
-    <a class="btn btn-primary" th:href="@{/signup}">Registrarse</a>
+    
+<!--     sec:authorize="isAnonymous() solo renderiza los botones si el usuario no ha ingresado con su cuenta -->
+<div sec:authorize="isAnonymous()">
+<a class="btn btn-primary" th:href="@{/index}">Ingresar</a>&nbsp;
+<a class="btn btn-primary" th:href="@{/signup}">Registrarse</a>
+</div>
     <!-- Renderizar atributos de la sesion con Thymeleaf -->
 <!--    <span th:if="${session.usuario != null}" class="text-light" th:text="'Bienvenido ' + ${session.usuario.nombre}"></span>&nbsp;  -->
 <!-- Renderizar en la vista el nombre del usuario que inicio sesión -->
