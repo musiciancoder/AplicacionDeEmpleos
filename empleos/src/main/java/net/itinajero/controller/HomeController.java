@@ -8,6 +8,7 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -104,6 +105,13 @@ public class HomeController {
 	public String mostrarIndex(Authentication auth) {
 		String username = auth.getName();//recuperar nombre del usuario
 		System.out.println("Nombre del usuario: " + username);
+		
+		
+		for (GrantedAuthority rol : auth.getAuthorities()) { //recuperar roles del usuario
+			System.out.println("Rol: " + rol);
+			
+		}
+		
 		return "redirect:/";
 	}
 	
