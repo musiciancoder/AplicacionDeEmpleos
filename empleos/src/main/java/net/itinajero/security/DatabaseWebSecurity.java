@@ -50,7 +50,8 @@ public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
 				// Todas las demás URLs de la Aplicación requieren autenticación
 				.anyRequest().authenticated()
 				// El formulario de Login no requiere autenticacion
-				.and().formLogin().permitAll();
+				//.and().formLogin().permitAll(); //Esto es para el formulario por defecto de Spring
+				.and().formLogin().loginPage("/login").permitAll();//Esto es para el formulario que nosotros hemos personalizado
 	}
 	
 	//Encriptar contraseñas

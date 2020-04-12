@@ -91,7 +91,13 @@ public class HomeController {
 		
 	}
 	
-	//Para encriptar cualquier texto
+	//Renderiza nuestro formulario personalizado
+	@GetMapping("/login" )
+	public String mostrarLogin() {
+	return "formLogin";
+	}
+	
+	//Para encriptar cualquier texto. No se ocupa en la aplicacion misma.
 	@GetMapping("/bcrypt/{texto}")
 	@ResponseBody //permite devolver un texto y no una vista
 	public String encriptar(@PathVariable("texto") String texto) {
