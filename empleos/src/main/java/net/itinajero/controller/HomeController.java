@@ -19,7 +19,9 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.itinajero.modelo.Perfil;
@@ -86,6 +88,14 @@ public class HomeController {
 		lista.add("Arquitecto");
 		model.addAttribute("empleos", lista);
 		return "listado"; //en spring en el controlado se puede retornar un objeto (html) que no coincide con el tipo definido inicialmente en el metodo
+		
+	}
+	
+	//Para encriptar cualquier texto
+	@GetMapping("/bcrypt/{texto}")
+	@ResponseBody //permite devolver un texto y no una vista
+	public String encriptar(@PathVariable("texto") String texto) {
+		return texto + "Encriptado en Bcrypt: " + passwordEncoder.encode(texto);
 		
 	}
 	
